@@ -51,7 +51,21 @@ public class DobbeltLenketListe<T> implements Liste<T>
     // konstruktør
     public DobbeltLenketListe(T[] a)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        //throw new UnsupportedOperationException("Ikke laget ennå!");
+        /*
+        this();
+
+        if (a.length == 0) return;  // ingen verdier - tom liste
+
+        hode = hale = new Node<>(a[a.length-1], null);  // den siste noden
+
+        for (int i = a.length - 2; i >= 0; i--)  // resten av verdiene
+        {
+            hode = new Node<>(a[i], hode);
+        }
+
+        antall = a.length;
+        */
     }
 
     // subliste

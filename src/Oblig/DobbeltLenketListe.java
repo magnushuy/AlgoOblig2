@@ -116,7 +116,28 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public void leggInn(int indeks, T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        Node<T> p = hode;
+        for(int i = 0; i < indeks; i++){
+            p = p.neste;
+        }
+
+        if(verdi == null) throw new NullPointerException("Null-verdier er ikke tillat");
+        indeksKontroll(indeks, true);
+        if(tom()){
+            hode = hale = new Node<T>(verdi,null, null);
+        }
+        else if(indeks == 0){
+            hode = hode.forrige = new Node<T>(verdi, null, hode);
+        }
+        else if(indeks == antall){
+            hale = hale.neste = new Node<T>(verdi, hale, null);
+        }
+        else{
+            p.forrige = p.forrige.neste = new Node<T>(verdi, p.forrige, p);
+        }
+        antall++;
+        endringer++;
+
     }
 
     @Override
@@ -207,7 +228,28 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     public String omvendtString()
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        //throw new UnsupportedOperationException("Ikke laget ennå!");
+        StringBuilder s = new StringBuilder();
+
+        s.append(']');
+
+        if (!tom())
+        {
+            Node<T> p = hale;
+            s.append(p.verdi);
+
+            p = p.forrige;
+
+            while (p != null)  // tar med resten hvis det er noe mer
+            {
+                s.append(',').append(' ').append(p.verdi);
+                p = p.forrige;
+            }
+        }
+
+        s.append('[');
+
+        return s.toString();
     }
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)

@@ -35,11 +35,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
     private int endringer;   // antall endringer i listen
 
     // hjelpemetode
-    /////////////OPPGAVE 3 ////////////////////////
     private Node<T> finnNode(int indeks)
     {
-        //throw new UnsupportedOperationException("Ikke laget ennå!");
-
         Node<T> p;
 
         if(indeks < antall/2){
@@ -54,9 +51,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
             }
         }
         return p;
-
-
-
     }
 
     // konstruktør
@@ -89,10 +83,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
     }
 
     // subliste
-    ///////////////////OPPGAVE 3B/////////////////////
-
-    public static void fratilKontroll(int antall, int fra, int til){
-          if(fra > 0) {
+    private static void fratilKontroll(int antall, int fra, int til){
+          if(fra < 0) {
               throw new IndexOutOfBoundsException("fra er negativ");
           }
 
@@ -109,7 +101,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     public Liste<T> subliste(int fra, int til)
     {
-        //throw new UnsupportedOperationException("Ikke laget ennå!");
         fratilKontroll(antall, fra, til);
         DobbeltLenketListe<T> liste = new DobbeltLenketListe<T>();
         Node<T> p = finnNode(fra);
@@ -183,11 +174,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
         else return false;
     }
 
-    //////////////OPPGAVE 3///////////////
     @Override
     public T hent(int indeks)
     {
-        //throw new UnsupportedOperationException("Ikke laget ennå!");
         indeksKontroll(indeks,false);
         return finnNode(indeks).verdi;
     }
@@ -203,11 +192,12 @@ public class DobbeltLenketListe<T> implements Liste<T>
         return -1;
     }
 
-    ////////OPPGAVE 3//////////////////////
     @Override
     public T oppdater(int indeks, T nyverdi)
     {
-        //throw new UnsupportedOperationException("Ikke laget ennå!");
+        if (nyverdi == null) {
+            throw new NullPointerException("Null-verdier er ikke tillat");
+        }
         indeksKontroll(indeks,false);
         Node<T> p = finnNode(indeks);
         T gammelverdi = p.verdi;

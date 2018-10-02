@@ -136,7 +136,17 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public boolean leggInn(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if (verdi == null) {
+            throw new NullPointerException("Null-verdier er ikke tillatt");
+        }
+
+        Node<T> p = new Node<>(verdi, hale, null);
+        hale = tom() ? (hode = p) : (hale.neste = p);
+
+        antall++;
+        endringer++;
+
+        return true;
     }
 
     @Override
@@ -228,7 +238,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public String toString()
     {
-        //throw new UnsupportedOperationException("Ikke laget ennå!");
         StringBuilder s = new StringBuilder();
 
         s.append('[');
@@ -254,10 +263,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     public String omvendtString()
     {
-        //throw new UnsupportedOperationException("Ikke laget ennå!");
         StringBuilder s = new StringBuilder();
 
-        s.append(']');
+        s.append('[');
 
         if (!tom())
         {
@@ -273,7 +281,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
             }
         }
 
-        s.append('[');
+        s.append(']');
 
         return s.toString();
     }

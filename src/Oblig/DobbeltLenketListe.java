@@ -35,9 +35,28 @@ public class DobbeltLenketListe<T> implements Liste<T>
     private int endringer;   // antall endringer i listen
 
     // hjelpemetode
+    /////////////OPPGAVE 3 ////////////////////////
     private Node<T> finnNode(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        //throw new UnsupportedOperationException("Ikke laget ennå!");
+
+        Node<T> p;
+
+        if(indeks < antall/2){
+            p = hode; //Hode som starter på venstre og går mot høyre
+           for(int i = 0; i < indeks; i++){ //Kode som går kjører forover
+               p = p.neste;
+           }else{
+               p = hale; //Hale som starter på høyre og går mot venstre.
+               for(int i = antall-1; i > indeks; i--){ //Kode som kjører baklengs
+                   p = p.forrige;
+               }
+            }
+            return p;
+        }
+
+
+
     }
 
     // konstruktør
@@ -107,10 +126,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
         else return false;
     }
 
+    //////////////OPPGAVE 3///////////////
     @Override
     public T hent(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        //throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks,false);
+        return finnNode(indeks).verdi;
     }
 
     @Override
@@ -124,10 +146,18 @@ public class DobbeltLenketListe<T> implements Liste<T>
         return -1;
     }
 
+    ////////OPPGAVE 3//////////////////////
     @Override
     public T oppdater(int indeks, T nyverdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        //throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks,false);
+        Node<T> p = finnNode(indeks);
+        T gammelverdi = p.verdi;
+        p.verdi = nyverdi;
+        endringer++;
+        return gammelverdi;
+
     }
 
     @Override

@@ -19,10 +19,10 @@ public class Oblig2Test {
     public static void main(String[] args) {
         int antallFeil = 0;
 
-        antallFeil += oppgave1();
+        //antallFeil += oppgave1();
         //antallFeil += oppgave2();
         //antallFeil += oppgave3();
-        //antallFeil += oppgave4();
+        antallFeil += oppgave4();
         //antallFeil += oppgave5();
         //antallFeil += oppgave6();
         //antallFeil += oppgave7();
@@ -149,6 +149,7 @@ public class Oblig2Test {
             System.out.println("Oppgave 1p: Feil i konstruktøren!");
         }
 
+
         class Test<T> extends DobbeltLenketListe<T> {
             public boolean leggInn(T verdi) {
                 super.leggInn(verdi);
@@ -171,6 +172,8 @@ public class Oblig2Test {
 
         return antallFeil;
     }
+
+
 
 
     ////// Oppgave 2 /////////////////////

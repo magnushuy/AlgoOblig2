@@ -46,14 +46,14 @@ public class DobbeltLenketListe<T> implements Liste<T>
             p = hode; //Hode som starter på venstre og går mot høyre
            for(int i = 0; i < indeks; i++){ //Kode som går kjører forover
                p = p.neste;
-           }else{
-               p = hale; //Hale som starter på høyre og går mot venstre.
-               for(int i = antall-1; i > indeks; i--){ //Kode som kjører baklengs
-                   p = p.forrige;
-               }
+           }
+        }else{
+            p = hale; //Hale som starter på høyre og går mot venstre.
+            for(int i = antall-1; i > indeks; i--){ //Kode som kjører baklengs
+                p = p.forrige;
             }
-            return p;
         }
+        return p;
 
 
 

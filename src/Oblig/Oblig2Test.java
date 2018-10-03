@@ -21,11 +21,11 @@ public class Oblig2Test {
 
         //antallFeil += oppgave1();
         //antallFeil += oppgave2();
-        antallFeil += oppgave3();
+        //antallFeil += oppgave3();
         //antallFeil += oppgave4();
         //antallFeil += oppgave5();
         //antallFeil += oppgave6();
-        //antallFeil += oppgave7();
+        antallFeil += oppgave7();
         //antallFeil += oppgave8();
         //antallFeil += oppgave9();
         //antallFeil += oppgave10();

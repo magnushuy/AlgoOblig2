@@ -324,16 +324,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public Iterator<T> iterator()
     {
-        //throw new UnsupportedOperationException("Ikke laget ennå!");
         return new DobbeltLenketListeIterator();
     }
 
     public Iterator<T> iterator(int indeks)
     {
-        //throw new UnsupportedOperationException("Ikke laget ennå!");
         indeksKontroll(indeks, false);
         return new DobbeltLenketListeIterator(indeks);
-
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T>
@@ -351,7 +348,6 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
         private DobbeltLenketListeIterator(int indeks)
         {
-            //throw new UnsupportedOperationException("Ikke laget ennå!");
             denne = finnNode(indeks);
             fjernOK = false;
             iteratorendringer = endringer;
@@ -366,20 +362,19 @@ public class DobbeltLenketListe<T> implements Liste<T>
         @Override
         public T next()
         {
-            //throw new UnsupportedOperationException("Ikke laget ennå!");
             if (endringer != iteratorendringer)
                 throw new ConcurrentModificationException("Listen er endret!");
 
             if (!hasNext()) throw new
                     NoSuchElementException("Tomt eller ingen verdier igjen!");
 
-            fjernOK = true;            // nå kan remove() kalles
+            fjernOK = true;                // nå kan remove() kalles
 
             T denneVerdi = denne.verdi;    // tar vare på verdien i p
-            denne = denne.neste;               // flytter p til den neste noden
-            //fjernOK = true;
+            denne = denne.neste;           // flytter p til den neste noden
+            fjernOK = true;
 
-            return denneVerdi;         // returnerer verdien
+            return denneVerdi;             // returnerer verdien
         }
 
         @Override
@@ -389,16 +384,5 @@ public class DobbeltLenketListe<T> implements Liste<T>
         }
 
     } // DobbeltLenketListeIterator
-
-    public static void main(String[] args) {
-        String[] navn = {"Lars","Anders","Bodil","Kari","Per","Berit"};
-        Liste<String> liste = new DobbeltLenketListe<>(navn);
-        liste.forEach(s -> System.out.print(s + " "));
-        System.out.println();
-        for (String s : liste) System.out.print(s + " ");
-        // Utskrift:
-        // Lars Anders Bodil Kari Per Berit
-        // Lars Anders Bodil Kari Per Berit
-    }
 
 } // DobbeltLenketListe

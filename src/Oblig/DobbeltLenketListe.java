@@ -143,13 +143,14 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public void leggInn(int indeks, T verdi)
     {
-        Node<T> p = hode;
-        for(int i = 0; i < indeks; i++){
-            p = p.neste;
+        Node<T> p;
+
+        if(verdi == null) {
+            throw new NullPointerException("Null-verdier er ikke tillat");
         }
 
-        if(verdi == null) throw new NullPointerException("Null-verdier er ikke tillat");
         indeksKontroll(indeks, true);
+
         if(tom()){
             hode = hale = new Node<T>(verdi,null, null);
         }
@@ -160,6 +161,7 @@ public class DobbeltLenketListe<T> implements Liste<T>
             hale = hale.neste = new Node<T>(verdi, hale, null);
         }
         else{
+            p = finnNode(indeks);
             p.forrige = p.forrige.neste = new Node<T>(verdi, p.forrige, p);
         }
         antall++;
@@ -210,13 +212,65 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public boolean fjern(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if (verdi == null) return false;
+
+        for (Node<T> p = hode; p != null; p = p.neste)
+        {
+            if (p.verdi.equals(verdi))
+            {
+                if(p == hode){
+                    hode = hode.neste;
+                    if(antall == 1) hale = null;
+                }
+                else{
+                    Node<T> q = p.neste;
+                    if(q == hale) hale = p;
+                    p.neste = q.neste;
+                    (q.neste).forrige = p;
+
+//                    Node<T> p = finnNode(indeks - 1);
+//                    Node<T> q = p.neste;
+//                    if(q == hale) hale = p;
+//                    p.neste = q.neste;
+//                    q.neste.forrige = p;
+
+                }
+                endringer++;
+                antall--;
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public T fjern(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks, false);
+        T temp;
+
+        if(indeks == 0){
+            temp = hode.verdi;
+            hode = hode.neste;
+            if(antall == 1){
+                hale = null;
+            }
+        }
+
+        else{
+            Node<T> p = finnNode(indeks - 1);
+            Node<T> q = p.neste;
+            temp = q.verdi;
+            if(q == hale) hale = p;
+            else {
+                p.neste = q.neste;
+                (q.neste).forrige = p;
+            }
+        }
+        endringer++;
+        antall--;
+        return temp;
+
     }
 
     @Override

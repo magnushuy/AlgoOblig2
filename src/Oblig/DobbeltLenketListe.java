@@ -207,16 +207,43 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     }
 
+    //oppgave 6
+    public T fjernNode(Node<T> p){
+        if(p == hode){
+            if(antall == 1){
+                hode = hale = null;
+            }else{
+                (hode = hode.neste).forrige = null;
+            }
+        }else if(p == hale){
+            (hale = hale.forrige).neste = null;
+        }else{
+            (p.neste.forrige = p.neste).forrige = p.forrige;
+        }
+        antall--;
+        endringer++;
+        return p.verdi;
+    }
+
     @Override
     public boolean fjern(T verdi)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        if(verdi == null) return false;
+        for (Node<T> p = hode; p != null; p = p.neste){
+            if(p.verdi.equals(verdi)){
+                fjernNode(p);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public T fjern(int indeks)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        indeksKontroll(indeks, false);
+
+        return fjernNode(finnNode(indeks));
     }
 
     @Override

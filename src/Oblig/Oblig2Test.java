@@ -19,14 +19,23 @@ public class Oblig2Test {
     public static void main(String[] args) {
         int antallFeil = 0;
 
+<<<<<<< HEAD
         antallFeil += oppgave1();
         antallFeil += oppgave2();
         antallFeil += oppgave3();
         antallFeil += oppgave4();
         antallFeil += oppgave5();
         antallFeil += oppgave6();
+=======
+        //antallFeil += oppgave1();
+        //antallFeil += oppgave2();
+        //antallFeil += oppgave3();
+        //antallFeil += oppgave4();
+        //antallFeil += oppgave5();
+        //antallFeil += oppgave6();
+>>>>>>> faf4b515980becb1a3a97e2fc7eca87393eec543
         //antallFeil += oppgave7();
-        //antallFeil += oppgave8();
+        antallFeil += oppgave8();
         //antallFeil += oppgave9();
         //antallFeil += oppgave10();
 

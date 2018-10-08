@@ -225,44 +225,8 @@ public class DobbeltLenketListe<T> implements Liste<T>
         return p.verdi;
     }
 
-    @Override
-    public boolean fjern(T verdi)
-    {
-        if(verdi == null) return false;
-        for (Node<T> p = hode; p != null; p = p.neste){
-            if(p.verdi.equals(verdi)){
-                if(p == hode){
-                    if(antall == 1){
-                        hode = hale = null;
-                    }
-                    else{
-                        hode = hode.neste;
-                        hode.forrige = null;
-                    }
-                }
-                else if (p == hale){
-                    hale = hale.forrige;
-                    hale.neste = null;
-                }
-                else{
-                    p.forrige.neste = p.neste;
-                    p.neste.forrige = p.forrige;
-                }
-                antall--;
-                endringer++;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public T fjern(int indeks)
-    {
-        indeksKontroll(indeks, false);
-
-        Node<T> r = finnNode(indeks);
-        T temp = r.verdi;
+    //Hjelpemetode for oppgave 6
+    private void sjekkFjern(Node<T> r){
         if(r == hode){
             if(antall == 1){
                 hode = hale = null;
@@ -280,9 +244,31 @@ public class DobbeltLenketListe<T> implements Liste<T>
             r.forrige.neste = r.neste;
             r.neste.forrige = r.forrige;
         }
-
         antall--;
         endringer++;
+    }
+
+    @Override
+    public boolean fjern(T verdi)
+    {
+        if(verdi == null) return false;
+        for (Node<T> p = hode; p != null; p = p.neste){
+            if(p.verdi.equals(verdi)){
+                sjekkFjern(p);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public T fjern(int indeks)
+    {
+        indeksKontroll(indeks, false);
+
+        Node<T> r = finnNode(indeks);
+        T temp = r.verdi;
+        sjekkFjern(r);
         return temp;
     }
 

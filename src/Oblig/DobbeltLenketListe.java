@@ -358,7 +358,18 @@ public class DobbeltLenketListe<T> implements Liste<T>
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c)
     {
-        throw new UnsupportedOperationException("Ikke laget ennå!");
+        for (int n = liste.antall(); n > 0; n--){
+            Iterator<T> iterator = liste.iterator();
+            int m = 0;
+            T minverdi = iterator.next();
+            for (int i = 1; i < n; i++){
+                T verdi = iterator.next();
+                if (c.compare(verdi,minverdi) < 0){
+                    m = i; minverdi = verdi;
+                }
+            }
+            liste.leggInn(liste.fjern(m));
+        }
     }
 
     @Override
@@ -420,27 +431,39 @@ public class DobbeltLenketListe<T> implements Liste<T>
         @Override
         public void remove()
         {
-            if(!fjernOK){
-                throw new IllegalStateException("Kan ikke fjerne!");
+            if (!fjernOK){
+                throw new IllegalStateException("Kan ikke fjerne en verdi nå!");
             }
-            if(iteratorendringer != endringer){
-                throw new ConcurrentModificationException("Listen er endret!");
+
+            if (iteratorendringer != endringer){
+                throw new ConcurrentModificationException("Listen har blitt endret!");
             }
-            if(antall == 1){
-                hode = hale = null;
-            }
-            if(denne == null){
-                //oppdatere
-            }
-            if(denne.forrige == hode){
-                //oppdatere
-            }
-            //if(noden denne.forrige){
-                //oppdatere pekere i noden på begge sider
-            //}
             fjernOK = false;
-            fjernNode(denne == null ? hale : denne.forrige);
+
+            if(antall == 1) hode = hale = null;
+
+            else if(denne == null){
+                //fjern hale og oppdater
+                (hale = hale.forrige).neste = null;
+
+            }
+            else if(denne.forrige == hode){
+                //Fjern hode og oppdater
+                (hode = hode.neste).forrige = null;
+            }
+
+            else{
+                //Fjern denne.forrige
+                //Oppdater pekere på hver side
+                Node<T> q = denne.forrige; //Denne vi skal fjerne
+                Node<T> p = q.forrige; //Noden før den vi skal fjerne
+                Node<T> r = q.neste; //Noden etter den vi skal fjerne
+                p.neste = r;
+                r.forrige = p;
+            }
+            endringer++;
             iteratorendringer++;
+            antall--;
         }
 
     } // DobbeltLenketListeIterator

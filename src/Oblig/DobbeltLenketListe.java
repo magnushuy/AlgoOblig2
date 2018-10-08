@@ -231,7 +231,25 @@ public class DobbeltLenketListe<T> implements Liste<T>
         if(verdi == null) return false;
         for (Node<T> p = hode; p != null; p = p.neste){
             if(p.verdi.equals(verdi)){
-                fjernNode(p);
+                if(p == hode){
+                    if(antall == 1){
+                        hode = hale = null;
+                    }
+                    else{
+                        hode = hode.neste;
+                        hode.forrige = null;
+                    }
+                }
+                else if (p == hale){
+                    hale = hale.forrige;
+                    hale.neste = null;
+                }
+                else{
+                    p.forrige.neste = p.neste;
+                    p.neste.forrige = p.forrige;
+                }
+                antall--;
+                endringer++;
                 return true;
             }
         }
@@ -243,7 +261,29 @@ public class DobbeltLenketListe<T> implements Liste<T>
     {
         indeksKontroll(indeks, false);
 
-        return fjernNode(finnNode(indeks));
+        Node<T> r = finnNode(indeks);
+        T temp = r.verdi;
+        if(r == hode){
+            if(antall == 1){
+                hode = hale = null;
+            }
+            else{
+                hode = hode.neste;
+                hode.forrige = null;
+            }
+        }
+        else if (r == hale){
+            hale = hale.forrige;
+            hale.neste = null;
+        }
+        else{
+            r.forrige.neste = r.neste;
+            r.neste.forrige = r.forrige;
+        }
+
+        antall--;
+        endringer++;
+        return temp;
     }
 
     @Override

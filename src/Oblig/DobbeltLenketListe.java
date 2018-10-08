@@ -143,13 +143,13 @@ public class DobbeltLenketListe<T> implements Liste<T>
     @Override
     public void leggInn(int indeks, T verdi)
     {
+        indeksKontroll(indeks, true);
         Node<T> p = hode;
         for(int i = 0; i < indeks; i++){
             p = p.neste;
         }
 
         if(verdi == null) throw new NullPointerException("Null-verdier er ikke tillat");
-        indeksKontroll(indeks, true);
         if(tom()){
             hode = hale = new Node<T>(verdi,null, null);
         }
@@ -395,9 +395,9 @@ public class DobbeltLenketListe<T> implements Liste<T>
             if(denne.forrige == hode){
                 //oppdatere
             }
-            if(noden denne.forrige){
+            //if(noden denne.forrige){
                 //oppdatere pekere i noden på begge sider
-            }
+            //}
             fjernOK = false;
             fjernNode(denne == null ? hale : denne.forrige);
             iteratorendringer++;
